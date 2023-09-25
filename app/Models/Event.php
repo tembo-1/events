@@ -30,4 +30,9 @@ class Event extends Model
             $event->created_at = now();
         });
     }
+
+    public function eventusers()
+    {
+        return $this->hasMany('App\Models\UserEvent');
+    }
 }

@@ -21,4 +21,14 @@ class UserEvent extends Model
             $event->user_id = auth()->id();
         });
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo('App\Models\Event');
+    }
 }

@@ -14,6 +14,13 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
+    public function validationData()
+    {
+        return array_merge($this->all(), [
+            'registration_date' => now(),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,11 +29,12 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login'         => 'required',
-            'password'      => 'required',
+            'login'         => 'required|unique:users,login',
+            'password'      => 'required|min:8',
             'name'          => 'required',
             'surname'       => 'required',
-            'birth_date'    => 'required',
+            'registration_date'       => 'required',
+            'birth_date'    => '',
         ];
     }
 }

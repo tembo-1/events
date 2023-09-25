@@ -13,34 +13,57 @@ use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
+    /**
+     * @param  StoreRequest  $request
+     * @param  EventService  $service
+     * @return JsonResponse
+     */
     public function store(StoreRequest $request, EventService $service):JsonResponse
     {
         $data = $request->validated();
 
-        return $service->store($data);
+        return response()->json($service->store($data));
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function index():JsonResponse
     {
         return response()->json(['error' => null, EventCollection::make(Event::all())]);
     }
 
-    public function accept(AcceptRequest $request, EventService $service):JsonResponse
+    /**
+     * @param  AcceptRequest  $request
+     * @param  EventService  $service
+     * @return JsonResponse
+     */
+    public function accept(AcceptRequest $request, EventService $service)
     {
         $data = $request->validated();
 
-        return $service->accept($data);
+        return response()->json($service->accept($data));
     }
 
+    /**
+     * @param  RejectRequest  $request
+     * @param  EventService  $service
+     * @return JsonResponse
+     */
     public function reject(RejectRequest $request, EventService $service):JsonResponse
     {
         $data = $request->validated();
 
-        return $service->reject($data);
+        return response()->json($service->reject($data));
     }
 
-    public function destroy($id, EventService $service)
+    /**
+     * @param $id
+     * @param  EventService  $service
+     * @return JsonResponse
+     */
+    public function destroy($id, EventService $service):JsonResponse
     {
-        return $service->destroy($id);
+        return response()->json($service->destroy($id));
     }
 }

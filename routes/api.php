@@ -17,15 +17,15 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 |
 */
 
-Route::group(['middleware' => 'throttle:300,60'], function() {
-    Route::post('/login',           [LoginController::class, 'login']);
-    Route::post('/register',        [RegisterController::class, 'register']);
+Route::group(['middleware' => 'throttle:511,60'], function() {
+    Route::post('/login',               [LoginController::class,        'login']);
+    Route::post('/register',            [RegisterController::class,     'register']);
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::resource('/events',     EventController::class);
-    Route::post('/event/accept',        [EventController::class, 'accept']);
-    Route::post('/event/reject',        [EventController::class, 'reject']);
+    Route::post('/events/accept',       [EventController::class,        'accept']);
+    Route::post('/events/reject',       [EventController::class,        'reject']);
 });
 
 

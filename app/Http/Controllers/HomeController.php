@@ -3,28 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
-    public function index()
+    public function index():Renderable
     {
         $events = Event::all();
-        return view('home', compact('events'));
+
+        $events_own = Event::query()
+            ->whereHas('eventusers', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->get();
+
+        return view('home', compact('events', 'events_own'));
     }
 }

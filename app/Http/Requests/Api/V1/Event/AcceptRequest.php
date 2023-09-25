@@ -17,7 +17,7 @@ class AcceptRequest extends FormRequest
     public function messages()
     {
         return [
-            'event_id.unique' => 'Пользователь уже зарегистрирован на этом событии',
+            'event_id.unique' => 'The user is already registered for this event',
         ];
     }
 

@@ -58,4 +58,9 @@ class User extends Authenticatable
             $user->registration_date = now();
         });
     }
+
+    public function eventusers()
+    {
+        return $this->hasMany('App\Models\UserEvent');
+    }
 }

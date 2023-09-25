@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             //Field
             $table->id();
-            $table->integer('title');
+            $table->text('title');
             $table->text('text');
             $table->unsignedBigInteger('creator_id');
             $table->date('created_at');
 
             //Connection
-            $table->foreign('creator_id')->on('users')->references('id');
+            $table->foreign('creator_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

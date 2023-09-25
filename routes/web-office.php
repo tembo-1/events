@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Site\EventController;
+use App\Http\Controllers\Site\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Auth::routes();
+
+Route::group(['middleware' => 'auth:web'], function() {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::resource('/event',     EventController::class, ['names' => getResourceNames('event')]);
+    Route::post('/event/accept',            [EventController::class, 'accept'])->name('event.accept');
+    Route::post('/event/reject',            [EventController::class, 'reject'])->name('event.reject');
+    Route::get('/user/info/{user}',         [UserController::class, 'info'])->name('user.info');
+});

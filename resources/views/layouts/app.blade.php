@@ -1,5 +1,5 @@
 <x-laravel-ui-adminlte::adminlte-layout>
-    <meta http-equiv="Refresh" content="3">
+    <meta http-equiv="Refresh" content="30">
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Main Header -->
